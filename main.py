@@ -5,6 +5,33 @@ import time
 import matplotlib.pyplot as plt
 import string
 import scienceplots
+import streamlit_authenticator as stauth
+import toml
+
+# Load TOML configuration
+config = toml.load('auth.toml')
+
+# Initialize authenticator
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config.get('preauthorized', {})
+)
+
+# Login block
+name, authentication_status, username = authenticator.login('Login', 'main')
+
+if authentication_status:
+    authenticator.logout('Logout', 'sidebar')
+    st.write(f'Welcome *{name}*')
+    st.title('Streamlit plotting App')
+elif authentication_status is False:
+    st.error('Username/password is incorrect')
+elif authentication_status is None:
+    st.warning('Please enter your username and password')
+
 
 # # print('installed')
 # st.checkbox('checkbox',value=True)

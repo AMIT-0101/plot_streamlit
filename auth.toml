@@ -1,0 +1,13 @@
+[credentials]
+usernames.alice.name = "amit"
+usernames.alice.password = "$2b$12$CqskUf6A1uKz/FblbD6L8OWZGHFOLZGA/xb6hBnmfGnD4xPEBQKZW"
+usernames.bob.name = "sipu"
+usernames.bob.password = "$2b$12$9nS06CqTWjvZCn66nIf6neU4q9Cq8D3JgCBz8V.VzHTwqfMQDbk5W"
+
+[cookie]
+expiry_days = 1
+key = "amit@4568"
+name = "st_plot"
+
+[preauthorized]
+emails = ["*"]
