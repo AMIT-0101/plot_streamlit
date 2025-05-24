@@ -7,30 +7,40 @@ import string
 import scienceplots
 import streamlit_authenticator as stauth
 import toml
+import yaml
 
-# Load TOML configuration
-config = toml.load('auth.toml')
+# Load config
+with open('./auth.yaml') as file:
+    config = yaml.safe_load(file)
 
-# Initialize authenticator
+# Authenticator
 authenticator = stauth.Authenticate(
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days']
-    # config.get('preauthorized', {})
+    credentials=config['credentials'],
+    cookie=config['cookie'],
+    preauthorized=config.get('preauthorized')
 )
 
-# Login block
-name, authentication_status, username = authenticator.login()
+# Login box
+authentication_status = authenticator.login()
 
 if authentication_status:
     authenticator.logout()
-    st.write(f'Welcome *{name}*')
+    
+    # Get login username
+    username = authenticator.username
+    
+    # Get full name from config
+    full_name = config['credentials']['usernames'][username]['name']
+    
+    st.write(f'Welcome *{full_name}* ({username}) 👋')
     st.title('Streamlit plotting App')
+
 elif authentication_status is False:
     st.error('Username/password is incorrect')
 elif authentication_status is None:
     st.warning('Please enter your username and password')
+
+
 
 
 
