@@ -21,10 +21,10 @@ authenticator = stauth.Authenticate(
 )
 
 # Login block
-name, authentication_status, username = authenticator.login('Login', 'main')
+name, authentication_status, username = authenticator.login()
 
 if authentication_status:
-    authenticator.logout('Logout', 'main')
+    authenticator.logout()
     st.write(f'Welcome *{name}*')
     st.title('Streamlit plotting App')
 elif authentication_status is False:
