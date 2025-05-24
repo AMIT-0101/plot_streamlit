@@ -23,7 +23,7 @@ authenticator = stauth.Authenticate(
 # Login returns a dictionary in the new version
 login_info = authenticator.login()
 
-if login_info is not None and login_info['authenticated']:
+if login_info:
     # Successful login
     username = login_info['username']
     full_name = config['credentials']['usernames'][username]['name']
