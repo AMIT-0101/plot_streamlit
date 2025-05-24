@@ -8,10 +8,10 @@ import scienceplots
 import streamlit_authenticator as stauth
 import toml
 import yaml
+from yaml.loader import SafeLoader
 
-# Load config
 with open('./auth.yaml') as file:
-    config = yaml.safe_load(file)
+    config = yaml.load(file, Loader=SafeLoader)
 
 authenticator = stauth.Authenticate(
     config['credentials'],
@@ -24,15 +24,9 @@ authenticator = stauth.Authenticate(
 login_info = authenticator.login()
 st.write(login_info)
 
-if login_info is None:
-    st.warning("Please enter your username and password")
-elif login_info['authenticated']:
-    username = login_info['username']
-    full_name = config['credentials']['usernames'][username]['name']
-
+if st.session_state.get('authentication_status'):
     authenticator.logout()
-    st.write(f"Welcome *{full_name}* ({username}) 👋")
-    st.title("Streamlit plotting App")
+    st.write(f'Welcome *{st.session_state.get("name")}*')
 
     # Sidebar plot selector
     st.sidebar.write("Select plot type:")
@@ -80,7 +74,9 @@ elif login_info['authenticated']:
         plt.style.use(['science', 'no-latex'])
         st.pyplot(fig)
 
-else:
-    st.error("Username/password is incorrect")
+elif st.session_state.get('authentication_status') is False:
+    st.error('Username/password is incorrect')
+elif st.session_state.get('authentication_status') is None:
+    st.warning('Please enter your username and password')
 
 
