@@ -24,7 +24,7 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status:
-    authenticator.logout('Logout', 'sidebar')
+    authenticator.logout('Logout', 'main')
     st.write(f'Welcome *{name}*')
     st.title('Streamlit plotting App')
 elif authentication_status is False:
