@@ -95,9 +95,12 @@ authentication_status = authenticator.login()
         st.pyplot(fig)
 
 elif authentication_status is False:
-    st.error("Username/password is incorrect")
+    st.error('Username/password is incorrect')
 
 elif authentication_status is None:
-    st.warning("Please enter your username and password")
+    if username is None:
+        st.warning('User does not exist in config.')
+    else:
+        st.warning('Please enter your username and password')
 
 
