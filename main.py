@@ -17,19 +17,21 @@ with open('./auth.yaml') as file:
 authenticator = stauth.Authenticate(
     credentials=config['credentials'],
     cookie=config['cookie'],
-    preauthorized=config.get('preauthorized')
+    preauthorized=config.get('pre-authorized')
 )
 
-authentication_status = authenticator.login()
+# Login returns a dictionary in the new version
+login_info = authenticator.login()
 
-# username will be None if login fails early
-username = authenticator.username
-
-if authentication_status:
-    authenticator.logout()
+if login_info is not None and login_info['authenticated']:
+    # Successful login
+    username = login_info['username']
     full_name = config['credentials']['usernames'][username]['name']
-    st.success(f'Welcome *{full_name}* ({username}) 👋')
-    st.title('Streamlit plotting App')
+    
+    authenticator.logout()
+
+    st.write(f"Welcome *{full_name}* ({username}) 👋")
+    st.title("Streamlit plotting App")
 # Login form
 # authentication_status = authenticator.login()
 
@@ -94,13 +96,9 @@ if authentication_status:
         plt.style.use(['science', 'no-latex'])
         st.pyplot(fig)
 
-elif authentication_status is False:
-    st.error('Username/password is incorrect')
-
-elif authentication_status is None:
-    if username is None:
-        st.warning('User does not exist in config.')
-    else:
-        st.warning('Please enter your username and password')
+elif login_info is not None and not login_info['authenticated']:
+    st.error("Username/password is incorrect")
+else:
+    st.warning("Please enter your username and password")
 
 
