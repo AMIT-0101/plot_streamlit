@@ -13,15 +13,16 @@ import yaml
 with open('./auth.yaml') as file:
     config = yaml.safe_load(file)
 
-# Initialize authenticator
 authenticator = stauth.Authenticate(
-    credentials=config['credentials'],
-    cookie=config['cookie'],
-    preauthorized=config.get('pre-authorized')
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
 )
 
 # Login - this shows the login form and returns None until form is submitted
 login_info = authenticator.login()
+st.write(login_info)
 
 if login_info is None:
     st.warning("Please enter your username and password")
