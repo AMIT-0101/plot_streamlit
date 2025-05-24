@@ -1,0 +1,14 @@
+name: Trigger Deploy on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Mac server to pull latest code
+        run: |
+          curl -X POST "http://192.168.0.3:5000/deploy?token=${{ secrets.DEPLOY_SECRET }}"
