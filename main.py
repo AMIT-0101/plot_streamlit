@@ -20,35 +20,18 @@ authenticator = stauth.Authenticate(
     preauthorized=config.get('pre-authorized')
 )
 
-# Login returns a dictionary in the new version
+# Login - this shows the login form and returns None until form is submitted
 login_info = authenticator.login()
 
-if login_info:
-    # Successful login
-    # username = login_info['username']
-    # full_name = config['credentials']['usernames'][username]['name']
-    
+if login_info is None:
+    st.warning("Please enter your username and password")
+elif login_info['authenticated']:
+    username = login_info['username']
+    full_name = config['credentials']['usernames'][username]['name']
+
     authenticator.logout()
-
-    # st.write(f"Welcome *{full_name}* ({username}) 👋")
-    # st.title("Streamlit plotting App")
-# Login form
-# authentication_status = authenticator.login()
-
-# # Handle login outcomes
-# if authentication_status:
-#     authenticator.logout()
-
-#     # Get logged-in username
-#     username = authenticator.username
-
-#     # Get full name from config
-#     user_info = config['credentials']['usernames'].get(username, {})
-#     full_name = user_info.get('name', username)
-
-#     # Welcome message
-#     st.write(f'Welcome *{full_name}* ({username}) 👋')
-#     st.title('Streamlit Plotting App')
+    st.write(f"Welcome *{full_name}* ({username}) 👋")
+    st.title("Streamlit plotting App")
 
     # Sidebar plot selector
     st.sidebar.write("Select plot type:")
@@ -96,9 +79,7 @@ if login_info:
         plt.style.use(['science', 'no-latex'])
         st.pyplot(fig)
 
-elif login_info is None:
-    st.error("Username/password is incorrect")
 else:
-    st.warning("Please enter your username and password")
+    st.error("Username/password is incorrect")
 
 
