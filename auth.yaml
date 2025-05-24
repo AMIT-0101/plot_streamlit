@@ -1,13 +1,13 @@
 credentials:
   usernames:
-    alice:
+    amit:
       email: alice@example.com
       name: Amit
-      password: '$2b$12$CqskUf6A1uKz/FblbD6L8OWZGHFOLZGA/xb6hBnmfGnD4xPEBQKZW'
-    bob:
+      password: 'amit123'
+    sipu:
       email: bob@example.com
       name: Sipu
-      password: '$2b$12$9nS06CqTWjvZCn66nIf6neU4q9Cq8D3JgCBz8V.VzHTwqfMQDbk5W'
+      password: 'sipu123'
 
 cookie:
   expiry_days: 1
