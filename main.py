@@ -31,7 +31,7 @@ if authentication_status:
     st.success(f'Welcome *{full_name}* ({username}) 👋')
     st.title('Streamlit plotting App')
 # Login form
-authentication_status = authenticator.login()
+# authentication_status = authenticator.login()
 
 # # Handle login outcomes
 # if authentication_status:
