@@ -25,13 +25,13 @@ login_info = authenticator.login()
 
 if login_info:
     # Successful login
-    username = login_info['username']
-    full_name = config['credentials']['usernames'][username]['name']
+    # username = login_info['username']
+    # full_name = config['credentials']['usernames'][username]['name']
     
     authenticator.logout()
 
-    st.write(f"Welcome *{full_name}* ({username}) 👋")
-    st.title("Streamlit plotting App")
+    # st.write(f"Welcome *{full_name}* ({username}) 👋")
+    # st.title("Streamlit plotting App")
 # Login form
 # authentication_status = authenticator.login()
 
@@ -96,7 +96,7 @@ if login_info:
         plt.style.use(['science', 'no-latex'])
         st.pyplot(fig)
 
-elif login_info is not None and not login_info['authenticated']:
+elif login_info is None:
     st.error("Username/password is incorrect")
 else:
     st.warning("Please enter your username and password")
