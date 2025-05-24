@@ -20,23 +20,33 @@ authenticator = stauth.Authenticate(
     preauthorized=config.get('preauthorized')
 )
 
+authentication_status = authenticator.login()
+
+# username will be None if login fails early
+username = authenticator.username
+
+if authentication_status:
+    authenticator.logout()
+    full_name = config['credentials']['usernames'][username]['name']
+    st.success(f'Welcome *{full_name}* ({username}) 👋')
+    st.title('Streamlit plotting App')
 # Login form
 authentication_status = authenticator.login()
 
-# Handle login outcomes
-if authentication_status:
-    authenticator.logout()
+# # Handle login outcomes
+# if authentication_status:
+#     authenticator.logout()
 
-    # Get logged-in username
-    username = authenticator.username
+#     # Get logged-in username
+#     username = authenticator.username
 
-    # Get full name from config
-    user_info = config['credentials']['usernames'].get(username, {})
-    full_name = user_info.get('name', username)
+#     # Get full name from config
+#     user_info = config['credentials']['usernames'].get(username, {})
+#     full_name = user_info.get('name', username)
 
-    # Welcome message
-    st.write(f'Welcome *{full_name}* ({username}) 👋')
-    st.title('Streamlit Plotting App')
+#     # Welcome message
+#     st.write(f'Welcome *{full_name}* ({username}) 👋')
+#     st.title('Streamlit Plotting App')
 
     # Sidebar plot selector
     st.sidebar.write("Select plot type:")
