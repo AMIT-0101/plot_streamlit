@@ -13,13 +13,14 @@ import yaml
 from yaml.loader import SafeLoader
 # --- Page config & style ---
 # st.set_page_config(page_title="Styled Streamlit App", layout="wide")
+#DataSage
 st.set_page_config(
-    page_title="Data visualisation app",
+    page_title=" StatSight",
     page_icon="🧊",
     initial_sidebar_state="expanded",
     menu_items={
-        'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'Get Help': 'See yourself',
+        'Report a bug': "100",
         'About': "# This is a header. This is an *extremely* cool app!"
     }
 )
@@ -35,16 +36,19 @@ authenticator = stauth.Authenticate(
 )
 
 st.markdown("""
-<style>
-
-/* Move logout button to bottom right */
-div[data-testid="stAppViewContainer"] button[kind="secondary"] {
+    <style>
+    /* Reduce padding above the title in the main content */
+    section.main > div:first-child {
+        padding-top: 1rem;
+    }
+    /* Move logout button to bottom right */
+    div[data-testid="stAppViewContainer"] button[kind="secondary"] {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 30px;
     z-index: 9999;
-}
-</style>
+    }
+    </style>
 """, unsafe_allow_html=True)
 
 # --- Login Section ---
@@ -52,13 +56,14 @@ login_info = authenticator.login(location='main')
 
 # --- If authenticated ---
 if st.session_state.get("authentication_status"):
-    st.sidebar.title("Navigation")
+    st.sidebar.title("DataSage Navigation")
     menu = st.sidebar.radio("Go to", ["Home", "Plots"])
     authenticator.logout()
 
     if menu == "Home":
+        st.markdown("<br><br>", unsafe_allow_html=True)  # Add vertical space
         st.title("Welcome 👋")
-        st.write(f"Hello, *{st.session_state.get('name')}*! Use the sidebar to navigate to Plots.")
+        st.write(f"Hello, *{st.session_state.get('name')}.")
 
     elif menu == "Plots":
         st.title("Plot Viewer")
