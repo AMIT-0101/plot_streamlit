@@ -42,7 +42,7 @@ st.markdown("""
     /* Move logout button to bottom right */
     div[data-testid="stAppViewContainer"] button[kind="secondary"] {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     right: 30px;
     z-index: 9999;
     }
