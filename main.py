@@ -12,7 +12,7 @@ import toml
 import yaml
 from yaml.loader import SafeLoader
 # --- Page config & style ---
-st.set_page_config(page_title="Styled Streamlit App", layout="wide")
+# st.set_page_config(page_title="Styled Streamlit App", layout="wide")
 st.set_page_config(
     page_title="Data visualisation app",
     page_icon="🧊",
