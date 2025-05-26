@@ -17,10 +17,8 @@ from yaml.loader import SafeLoader
 st.set_page_config(
     page_title=" StatSight",
     page_icon="🧊",
-    initial_sidebar_state="expanded",
+    # initial_sidebar_state="expanded",
     menu_items={
-        'Get Help': 'See yourself',
-        'Report a bug': "100",
         'About': "# This is a header. This is an *extremely* cool app!"
     }
 )
