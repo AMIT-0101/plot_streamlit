@@ -53,6 +53,10 @@ def apply_top_padding(menu_choice):
                 padding-top: 0rem;
                 margin-top: 0rem;
             }
+            /* Override the excessive padding of main block container */
+            .st-emotion-cache-1w723zb {
+                padding: 0rem 1rem 0rem;  /* Top Right/Left Bottom */
+            }            
             </style>
         """, unsafe_allow_html=True)
     else:
