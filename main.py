@@ -16,7 +16,6 @@ from yaml.loader import SafeLoader
 st.set_page_config(
     page_title="Data visualisation app",
     page_icon="🧊",
-    layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
         'Get Help': 'https://www.extremelycoolapp.com/help',
@@ -37,15 +36,6 @@ authenticator = stauth.Authenticate(
 
 st.markdown("""
 <style>
-/* Sidebar background */
-section[data-testid="stSidebar"] {
-    background-color: #f3e5f5 !important;
-}
-
-/* Main panel background */
-div[data-testid="stAppViewContainer"] > .main {
-    background-color: blue;
-}
 
 /* Move logout button to bottom right */
 div[data-testid="stAppViewContainer"] button[kind="secondary"] {
