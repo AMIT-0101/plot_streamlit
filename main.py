@@ -16,7 +16,7 @@ from yaml.loader import SafeLoader
 #DataSage
 st.set_page_config(
     page_title=" StatSight",
-    page_icon="🧊",
+    page_icon="📊",
     # initial_sidebar_state="expanded",
     menu_items={
         'About': "# This is a header. This is an *extremely* cool app!"
@@ -33,37 +33,49 @@ authenticator = stauth.Authenticate(
     config['cookie']['expiry_days']
 )
 
+# Global CSS for logout button
 st.markdown("""
     <style>
-    /* Reduce padding above the title in the main content */
-    section.main > div:first-child {
-        padding-top: 0.25rem;
-    }
-    /* Move logout button to bottom right*/
+    /* Move logout button to top right */
     div[data-testid="stAppViewContainer"] button[kind="secondary"] {
-    position: fixed;
-    top: 70px;
-    right: 30px;
-    z-index: 9999;
+        position: fixed;
+        top: 70px;
+        right: 30px;
+        z-index: 9999;
     }
     </style>
 """, unsafe_allow_html=True)
+def apply_top_padding(menu_choice):
+    if menu_choice != "Home":
+        st.markdown("""
+            <style>
+            section.main > div:first-child {
+                padding-top: 0rem;
+                margin-top: 0rem;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("<br><br>", unsafe_allow_html=True)
+
 
 # --- Login Section ---
 login_info = authenticator.login(location='main')
 
-# --- If authenticated ---
 if st.session_state.get("authentication_status"):
-    st.sidebar.title("DataSage Navigation")
-    menu = st.sidebar.radio("Go to", ["Home", "Plots"])
+    st.sidebar.title("Navigation")
+    st.session_state["menu"] = st.sidebar.radio("Go to", ["Home", "Plots"])
+
+    # Apply page-specific top padding here
+    apply_top_padding(st.session_state["menu"])
+
     authenticator.logout()
 
-    if menu == "Home":
-        st.markdown("<br><br>", unsafe_allow_html=True)  # Add vertical space
+    if st.session_state["menu"] == "Home":
         st.title("Welcome 👋")
         st.write(f"Hello, *{st.session_state.get('name')}.")
-
-    elif menu == "Plots":
+    
+    elif st.session_state["menu"] == "Plots":
         st.title("Plot Viewer")
         plot_type = st.sidebar.radio(
             "Choose a plot",
