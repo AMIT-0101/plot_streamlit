@@ -37,16 +37,15 @@ st.markdown("""
     <style>
     /* Reduce padding above the title in the main content */
     section.main > div:first-child {
-        padding-top: 1rem;
+        padding-top: 0.25rem;
     }
-    /* Move logout button to bottom right
+    /* Move logout button to bottom right*/
     div[data-testid="stAppViewContainer"] button[kind="secondary"] {
     position: fixed;
-    bottom: 20px;
+    top: 70px;
     right: 30px;
     z-index: 9999;
     }
-    */
     </style>
 """, unsafe_allow_html=True)
 
@@ -57,7 +56,7 @@ login_info = authenticator.login(location='main')
 if st.session_state.get("authentication_status"):
     st.sidebar.title("DataSage Navigation")
     menu = st.sidebar.radio("Go to", ["Home", "Plots"])
-    authenticator.logout(location='sidebar')
+    authenticator.logout()
 
     if menu == "Home":
         st.markdown("<br><br>", unsafe_allow_html=True)  # Add vertical space
