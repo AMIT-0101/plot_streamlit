@@ -1,4 +1,6 @@
 import streamlit as st
+
+
 import pandas as pd
 import numpy as np
 import time
@@ -9,6 +11,19 @@ import streamlit_authenticator as stauth
 import toml
 import yaml
 from yaml.loader import SafeLoader
+# --- Page config & style ---
+st.set_page_config(page_title="Styled Streamlit App", layout="wide")
+st.set_page_config(
+    page_title="Data visualisation app",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
 
 with open('./auth.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
@@ -19,9 +34,6 @@ authenticator = stauth.Authenticate(
     config['cookie']['key'],
     config['cookie']['expiry_days']
 )
-
-# --- Page config & style ---
-st.set_page_config(page_title="Styled Streamlit App", layout="wide")
 
 st.markdown("""
 <style>
