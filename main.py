@@ -20,33 +20,33 @@ authenticator = stauth.Authenticate(
     config['cookie']['expiry_days']
 )
 
+# --- Page config & style ---
+st.set_page_config(page_title="Styled Streamlit App", layout="wide")
+
+st.markdown("""
+<style>
+/* Sidebar background */
+section[data-testid="stSidebar"] {
+    background-color: #f3e5f5 !important;
+}
+
+/* Main panel background */
+div[data-testid="stAppViewContainer"] > .main {
+    background-color: blue;
+}
+
+/* Move logout button to bottom right */
+div[data-testid="stAppViewContainer"] button[kind="secondary"] {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 9999;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # --- Login Section ---
 login_info = authenticator.login(location='main')
-
-st.markdown("""
-    <style>
-    /* Sidebar background */
-    [data-testid="stSidebar"] {
-        background-color: #f3e5f5 !important;
-    }
-
-    /* Main panel background
-    [data-testid="stAppViewContainer"] > .main {
-        background-color: white !important;
-    
-    }
-    */
-
-    /* Position the logout button at bottom-left of main panel */
-    [data-testid="stAppViewContainer"] button[data-testid="baseButton"][aria-label="Logout"] {
-        position: fixed;
-        bottom: 20px;
-        left: 30px;
-        z-index: 999;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 # --- If authenticated ---
 if st.session_state.get("authentication_status"):
