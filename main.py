@@ -24,7 +24,6 @@ authenticator = stauth.Authenticate(
 # --- Login Section ---
 login_info = authenticator.login(location='main')
 
-# --- Apply Custom CSS ---
 st.markdown("""
     <style>
     /* Sidebar background */
@@ -32,17 +31,19 @@ st.markdown("""
         background-color: #f3e5f5 !important;
     }
 
-    /* Main background */
+    /* Main panel background
     [data-testid="stAppViewContainer"] > .main {
         background-color: white !important;
+    
     }
+    */
 
-    /* Push logout to bottom right */
-    .logout-button {
+    /* Position the logout button at bottom-left of main panel */
+    [data-testid="stAppViewContainer"] button[data-testid="baseButton"][aria-label="Logout"] {
         position: fixed;
         bottom: 20px;
-        right: 30px;
-        z-index: 1000;
+        left: 30px;
+        z-index: 999;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -51,13 +52,7 @@ st.markdown("""
 if st.session_state.get("authentication_status"):
     st.sidebar.title("Navigation")
     menu = st.sidebar.radio("Go to", ["Home", "Plots"])
-
-    # Logout button (rendered as regular Streamlit button styled to appear at bottom)
-    logout_container = st.container()
-    with logout_container:
-        st.markdown('<div class="logout-button">', unsafe_allow_html=True)
-        authenticator.logout("Logout", "main")
-        st.markdown('</div>', unsafe_allow_html=True)
+    authenticator.logout()
 
     if menu == "Home":
         st.title("Welcome 👋")
