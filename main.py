@@ -22,7 +22,7 @@ authenticator = stauth.Authenticate(
 
 # Login - this shows the login form and returns None until form is submitted
 login_info = authenticator.login()
-st.write(login_info)
+# st.write(login_info)
 
 if st.session_state.get('authentication_status'):
     authenticator.logout()
@@ -32,7 +32,8 @@ if st.session_state.get('authentication_status'):
     st.sidebar.write("Select plot type:")
     plot_type = st.sidebar.radio(
         "Choose a plot",
-        options=('Line', 'Bar', 'H-Bar', 'Scatter')
+        options=('Line', 'Bar', 'H-Bar', 'Scatter','None'),
+        index=4
     )
 
     # Dummy data
