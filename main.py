@@ -76,7 +76,7 @@ if st.session_state.get("authentication_status"):
     authenticator.logout()
 
     if st.session_state["menu"] == "Home":
-        st.title("Welcome 👋")
+        st.title("Welcome bro 👋")
         st.write(f"Hello, *{st.session_state.get('name')}.")
     
     elif st.session_state["menu"] == "Plots":
